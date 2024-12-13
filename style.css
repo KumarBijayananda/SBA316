@@ -1,0 +1,36 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+  background-color: rgb(44, 44, 44);
+  /* outline: 2px solid black; */
+}
+
+header {
+  height: 20vh;
+  font-size: 60px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: 5% auto;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  margin: 2%;
+}
+
+input::placeholder {
+  text-align: center;
+}
