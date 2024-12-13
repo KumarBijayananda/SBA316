@@ -2,7 +2,7 @@
   margin: 0px;
   box-sizing: border-box;
   background-color: rgb(44, 44, 44);
-  /* outline: 2px solid black; */
+  outline: 2px solid black;
 }
 
 header {
@@ -33,4 +33,16 @@ button {
 
 input::placeholder {
   text-align: center;
+}
+
+#container {
+  display: flex;
+}
+
+#savedList {
+  width: 20%;
+  text-align: center;
+}
+#mainSection {
+  width: 80%;
 }
