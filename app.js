@@ -45,64 +45,67 @@ function validateUser(e) {
 }
 
 newList.addEventListener("click", (e) => {
-  console.log(user[0].listArray[0]);
-
+  let isTitleMode = true; // Start with title mode
   const form = document.createElement("form");
   listContainer.appendChild(form);
-  console.log(user[0].listArray);
-  // if (currentList[0] === "") {
+
   const input = document.createElement("input");
-  input.placeholder = "Enter list item here";
+  input.placeholder = "Enter title here"; // Initial placeholder for title
   form.appendChild(input);
   input.focus();
+
   const button = document.createElement("button");
-  button.innerText = "Add Item";
+  button.innerText = "Add Title"; // Initial button text for title
   form.appendChild(button);
-  // } else {
-  //   const input = document.createElement("input");
-  //   input.placeholder = "Enter title here";
-  //   form.appendChild(input);
-  //   input.focus();
-  //   const button = document.createElement("button");
-  //   button.innerText = "Add Title";
-  //   form.appendChild(button);
-  // }
 
   const ul = document.createElement("ul");
   listContainer.appendChild(ul);
 
-  //event listener for the ADD button
+  // Event listener for the Add button
   button.addEventListener("click", (e) => {
-    // console.log(e.target.textContent);
     e.preventDefault();
-    const li = document.createElement("li");
-    ul.appendChild(li);
-    li.innerText = input.value;
-    const remove = document.createElement("button"); //remove button for the list
-    remove.innerText = "Remove";
-    li.appendChild(remove);
-    remove.addEventListener("click", (e) => {
-      //event listener for the remove button
-      e.preventDefault();
-      li.remove(li.firstChild);
-    });
-    currentList.push(input.value);
-    input.value = "";
+    if (isTitleMode) {
+      // Add title as the first list item
+      const titleLi = document.createElement("li");
+      titleLi.innerText = input.value;
+      ul.appendChild(titleLi);
+
+      // Switch to item mode
+      isTitleMode = false;
+      button.innerText = "Add Item";
+      input.placeholder = "Enter list item here";
+
+      const remove = document.createElement("button"); // Remove button for the list item
+      remove.innerText = "Remove";
+      titleLi.appendChild(remove);
+
+      remove.addEventListener("click", (e) => {
+        e.preventDefault();
+        titleLi.remove();
+      });
+      currentList.push(input.value); // Add to the current list array
+
+      input.value = "";
+    } else {
+      // Add regular list item
+      const li = document.createElement("li");
+      li.innerText = input.value;
+      ul.appendChild(li);
+
+      const remove = document.createElement("button"); // Remove button for the list item
+      remove.innerText = "Remove";
+      li.appendChild(remove);
+
+      remove.addEventListener("click", (e) => {
+        e.preventDefault();
+        li.remove();
+      });
+
+      currentList.push(input.value); // Add to the current list array
+      input.value = "";
+    }
   });
 });
-
-// form.onsubmit = (e) => {
-//     if (e.target.textContent === "Add Title") {
-//       console.log(e.target.textContent);
-//       e.preventDefault();
-//       const li = document.createElement("li");
-//       ul.appendChild(li);
-//       li.innerText = input.value;
-//       currentList.push(input.value);
-//       input.value = "";
-//     }
-// };
-// });
 
 //Event Listener for Save List Button
 saveList.addEventListener("click", (e) => {
