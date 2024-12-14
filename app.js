@@ -13,13 +13,13 @@ const user = [
     name: "Kumar",
     email: "kumar@gmail.com",
     password: "kj",
-    listArray: [],
+    listArray: [[]],
   },
   {
     name: "Delta",
     email: "delta@gmail.com",
     password: "snake",
-    listArray: [],
+    listArray: [[]],
   },
 ];
 
@@ -44,6 +44,7 @@ function validateUser(e) {
 
 newList.addEventListener("click", (e) => {
   let isTitleMode = true; // Start with title mode
+  newList.disabled = true;
   const form = document.createElement("form");
   listContainer.appendChild(form);
 
@@ -80,6 +81,7 @@ newList.addEventListener("click", (e) => {
       remove.addEventListener("click", (e) => {
         e.preventDefault();
         titleLi.remove();
+        currentList.length = 0;
         while (ul.firstChild) {
           ul.removeChild(ul.firstChild);
         }
@@ -108,15 +110,22 @@ newList.addEventListener("click", (e) => {
   });
 });
 
+// saveList.append(user[userID].listArray);
+
 //Event Listener for Save List Button
 saveList.addEventListener("click", (e) => {
-  user[userID].listArray = currentList;
-  showSaved();
-  while (listContainer.firstChild) {
-    listContainer.removeChild(listContainer.firstChild);
+  if (currentList.length === 0) {
+    alert("Current List is Empty");
+  } else {
+    user[userID].listArray[0].push(currentList);
+    // console.log(user[userID].listArray);
+    showSaved();
+    while (listContainer.firstChild) {
+      listContainer.removeChild(listContainer.firstChild);
+    }
+    currentList.length = 0;
+    newList.disabled = false;
   }
-
-  saveList.append(user[userID].listArray);
 });
 
 //func to show saved list
