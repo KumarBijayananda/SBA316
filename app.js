@@ -68,13 +68,16 @@ newList.addEventListener("click", (e) => {
       // Add title as the first list item
       const titleLi = document.createElement("li");
       titleLi.innerText = input.value;
-      ul.appendChild(titleLi);
+      if (input.value === "") {
+        alert("Input field is empty!!");
+      } else {
+        ul.appendChild(titleLi);
 
-      // Switch to item mode
-      isTitleMode = false;
-      button.innerText = "Add Item";
-      input.placeholder = "Enter list item here";
-
+        // Switch to item mode
+        isTitleMode = false;
+        button.innerText = "Add Item";
+        input.placeholder = "Enter list item here";
+      }
       const remove = document.createElement("button"); // Remove button for the title
       remove.innerText = "Remove";
       titleLi.appendChild(remove);
@@ -94,7 +97,10 @@ newList.addEventListener("click", (e) => {
       // Add regular list item
       const li = document.createElement("li");
       li.innerText = input.value;
-      ul.appendChild(li);
+
+      if (input.value === "") {
+        alert("Input field is empty!!");
+      } else ul.appendChild(li);
 
       const remove = document.createElement("button"); // Remove button for the list item
       remove.innerText = "Remove";
