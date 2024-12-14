@@ -23,18 +23,16 @@ const user = [
   },
 ];
 
-saveList.append(user[0].listArray);
-
+//func called when login is attempted
 function validateUser(e) {
   e.preventDefault();
   const name = userName.value;
   const pass = password.value;
   let isUserValid = false;
-  console.log("func ValidateUser is here");
   for (let i = 0; i < user.length; i++) {
     if (name === user[i].name && pass === user[i].password) {
       isUserValid = true;
-      userID = i;
+      userID = i; //setting user ID
     }
   }
   if (!isUserValid) {
@@ -75,13 +73,16 @@ newList.addEventListener("click", (e) => {
       button.innerText = "Add Item";
       input.placeholder = "Enter list item here";
 
-      const remove = document.createElement("button"); // Remove button for the list item
+      const remove = document.createElement("button"); // Remove button for the title
       remove.innerText = "Remove";
       titleLi.appendChild(remove);
 
       remove.addEventListener("click", (e) => {
         e.preventDefault();
         titleLi.remove();
+        while (ul.firstChild) {
+          ul.removeChild(ul.firstChild);
+        }
       });
       currentList.push(input.value); // Add to the current list array
 
@@ -109,11 +110,13 @@ newList.addEventListener("click", (e) => {
 
 //Event Listener for Save List Button
 saveList.addEventListener("click", (e) => {
-  user[0].listArray = currentList;
+  user[userID].listArray = currentList;
   showSaved();
   while (listContainer.firstChild) {
     listContainer.removeChild(listContainer.firstChild);
   }
+
+  saveList.append(user[userID].listArray);
 });
 
 //func to show saved list
@@ -122,5 +125,5 @@ function showSaved() {
   savedList.appendChild(ul);
   const li = document.createElement("li");
   ul.appendChild(li);
-  li.innerText = user[0].listArray[0];
+  li.innerText = user[userID].listArray[0];
 }
