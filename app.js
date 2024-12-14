@@ -13,17 +13,17 @@ const user = [
     name: "Kumar",
     email: "kumar@gmail.com",
     password: "kj",
-    listArray: [[]],
+    listArray: [],
   },
   {
     name: "Delta",
     email: "delta@gmail.com",
     password: "snake",
-    listArray: [[]],
+    listArray: [],
   },
 ];
 
-//func called when login is attempted
+//function called when login is attempted
 function validateUser(e) {
   e.preventDefault();
   const name = userName.value;
@@ -63,6 +63,7 @@ newList.addEventListener("click", (e) => {
   // Event listener for the Add button
   button.addEventListener("click", (e) => {
     e.preventDefault();
+
     if (isTitleMode) {
       // Add title as the first list item
       const titleLi = document.createElement("li");
@@ -117,8 +118,7 @@ saveList.addEventListener("click", (e) => {
   if (currentList.length === 0) {
     alert("Current List is Empty");
   } else {
-    user[userID].listArray[0].push(currentList);
-    // console.log(user[userID].listArray);
+    user[userID].listArray.push([...currentList]);
     showSaved();
     while (listContainer.firstChild) {
       listContainer.removeChild(listContainer.firstChild);
@@ -126,13 +126,19 @@ saveList.addEventListener("click", (e) => {
     currentList.length = 0;
     newList.disabled = false;
   }
+  console.log(user[userID].listArray);
 });
 
 //func to show saved list
 function showSaved() {
+  savedList.innerHTML = "";
   const ul = document.createElement("ul");
   savedList.appendChild(ul);
-  const li = document.createElement("li");
-  ul.appendChild(li);
-  li.innerText = user[userID].listArray[0];
+  for (let i = 0; i < user[userID].listArray.length; i++) {
+    const li = document.createElement("li");
+    ul.appendChild(li);
+    li.innerText = user[userID].listArray[i][0];
+    li.style.listStyleType = "none";
+    li.style.color = "red";
+  }
 }
