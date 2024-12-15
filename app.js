@@ -96,9 +96,6 @@ newList.addEventListener("click", (e) => {
           ul.removeChild(ul.firstChild);
         }
       });
-      currentList.push(input.value); // Add to the current list array
-
-      input.value = "";
     } else {
       // Add regular list item
       const li = document.createElement("li");
@@ -116,29 +113,39 @@ newList.addEventListener("click", (e) => {
         e.preventDefault();
         li.remove();
       });
-
-      currentList.push(input.value); // Add to the current list array
-      input.value = "";
     }
+    currentList.push(input.value); // Add to the current list array
+    input.value = "";
   });
 });
 
-// saveList.append(user[userID].listArray);
-
 //Event Listener for Save List Button
 saveList.addEventListener("click", (e) => {
+  let isListTitleExist = false;
+  let indexTitle = 0;
+
   if (currentList.length === 0) {
     alert("Current List is Empty");
   } else {
-    user[userID].listArray.push([...currentList]);
-    showSaved();
-    while (listContainer.firstChild) {
-      listContainer.removeChild(listContainer.firstChild);
+    for (let i = 0; i < user[userID].listArray.length; i++) {
+      if (user[userID].listArray[i][0] === currentList[0]) {
+        isListTitleExist = true;
+        indexTitle = i;
+      }
     }
-    currentList.length = 0;
-    newList.disabled = false;
+
+    if (isListTitleExist) {
+      user[userID].listArray.splice(indexTitle, 1, currentList);
+    } else {
+      user[userID].listArray.push([...currentList]);
+      showSaved();
+    }
   }
-  // console.log(user[userID].listArray);
+  while (listContainer.firstChild) {
+    listContainer.removeChild(listContainer.firstChild);
+  }
+  currentList.length = 0;
+  newList.disabled = false;
 });
 
 //func to show saved list
@@ -173,6 +180,7 @@ function loadDropdown() {
 loadList.addEventListener("click", () => {
   let indexToLoad = 0;
   console.log(dropdownList.value);
+  console.log(titleList);
   for (let i = 0; i < titleList.length; i++) {
     if (dropdownList.value === titleList[i]) {
       indexToLoad = i; //index for array that needs to be loaded
@@ -196,42 +204,6 @@ loadList.addEventListener("click", () => {
   listContainer.appendChild(ul);
 
   for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
-    // console.log(user[userID].listArray[indexToLoad][i]);
-
-    // if (isTitleMode) {
-    //   // Add title as the first list item
-    //   const titleLi = document.createElement("li");
-    //   input.value = user[userID].listArray[indexToLoad][i];
-    //   titleLi.innerText = input.value;
-
-    //   //check if input is empty
-    //   if (input.value === "") {
-    //     alert("Input field is empty!!");
-    //   } else {
-    //     ul.appendChild(titleLi);
-
-    //     // Switch to item mode
-    //     isTitleMode = false;
-    //     button.innerText = "Add item";
-    //     input.placeholder = "Enter list item here";
-    //   }
-    //   const remove = document.createElement("button"); // Remove button for the title
-    //   remove.innerText = "Remove";
-    //   titleLi.appendChild(remove);
-
-    //   remove.addEventListener("click", (e) => {
-    //     e.preventDefault();
-    //     titleLi.remove();
-    //     currentList.length = 0;
-    //     while (ul.firstChild) {
-    //       ul.removeChild(ul.firstChild);
-    //     }
-    //   });
-    //   currentList.push(input.value); // Add to the current list array
-
-    //   input.value = "";
-    // } else {
-    //   // Add regular list item
     const li = document.createElement("li");
     input.value = user[userID].listArray[indexToLoad][i];
     li.innerText = input.value;
@@ -239,14 +211,13 @@ loadList.addEventListener("click", () => {
     if (input.value === "") {
       alert("Input field is empty!!");
     } else ul.appendChild(li);
-
+    currentList.push(input.value);
     const remove = document.createElement("button"); // Remove button for the list item
     remove.innerText = "Remove";
     li.appendChild(remove);
 
     if (isTitleMode) {
       remove.addEventListener("click", (e) => {
-        // e.preventDefault();
         isTitleMode = false;
         li.remove();
         currentList.length = 0;
@@ -256,7 +227,6 @@ loadList.addEventListener("click", () => {
       });
     } else {
       remove.addEventListener("click", (e) => {
-        // e.preventDefault();
         li.remove();
       });
       currentList.push(input.value); // Add to the current list array
@@ -268,59 +238,25 @@ loadList.addEventListener("click", () => {
   button.addEventListener("click", (e) => {
     e.preventDefault();
 
-    if (isTitleMode) {
-      // Add title as the first list item
-      const titleLi = document.createElement("li");
-      titleLi.innerText = input.value;
+    // Add regular list item
+    const li = document.createElement("li");
+    li.innerText = input.value;
 
-      //check if input is empty
-      if (input.value === "") {
-        alert("Input field is empty!!");
-      } else {
-        ul.appendChild(titleLi);
+    if (input.value === "") {
+      alert("Input field is empty!!");
+    } else ul.appendChild(li);
 
-        // Switch to item mode
-        isTitleMode = false;
-        button.innerText = "Add item";
-        input.placeholder = "Enter list item here";
-      }
-      const remove = document.createElement("button"); // Remove button for the title
-      remove.innerText = "Remove";
-      titleLi.appendChild(remove);
+    const remove = document.createElement("button"); // Remove button for the list item
+    remove.innerText = "Remove";
+    li.appendChild(remove);
 
-      remove.addEventListener("click", (e) => {
-        e.preventDefault();
-        titleLi.remove();
-        currentList.length = 0;
-        while (ul.firstChild) {
-          ul.removeChild(ul.firstChild);
-        }
-      });
-      currentList.push(input.value); // Add to the current list array
+    remove.addEventListener("click", (e) => {
+      e.preventDefault();
+      li.remove();
+    });
 
-      input.value = "";
-    } else {
-      // Add regular list item
-      const li = document.createElement("li");
-      li.innerText = input.value;
-
-      if (input.value === "") {
-        alert("Input field is empty!!");
-      } else ul.appendChild(li);
-
-      const remove = document.createElement("button"); // Remove button for the list item
-      remove.innerText = "Remove";
-      li.appendChild(remove);
-
-      remove.addEventListener("click", (e) => {
-        e.preventDefault();
-        li.remove();
-      });
-
-      currentList.push(input.value); // Add to the current list array
-      input.value = "";
-    }
+    currentList.push(input.value); // Add to the current list array
+    input.value = "";
+    // }
   });
 });
-
-//iterate through the array to load all items
