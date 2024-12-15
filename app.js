@@ -131,32 +131,35 @@ saveList.addEventListener("click", (e) => {
   for (const li of ul.children) {
     currentList.push(li.firstChild.textContent);
   }
-  console.log(currentList);
+  console.log("Current list right after save button" + currentList);
+
   if (currentList.length === 0) {
     alert("Current List is Empty");
-  } else {
-    for (let i = 0; i < user[userID].listArray.length; i++) {
-      if (user[userID].listArray[i][0] === currentList[0]) {
-        isListTitleExist = true;
-        indexTitle = i;
-      }
-    }
+    return;
+  }
 
-    if (isListTitleExist) {
-      user[userID].listArray.splice(indexTitle, 1, currentList);
-      console.log("if title exits:");
-    } else {
-      user[userID].listArray.push([...currentList]);
-      console.log("if title doesn't exits:");
+  for (let i = 0; i < user[userID].listArray.length; i++) {
+    if (user[userID].listArray[i][0] === currentList[0]) {
+      isListTitleExist = true;
+      indexTitle = i;
     }
+  }
+
+  if (isListTitleExist) {
+    user[userID].listArray[indexTitle] = [...currentList];
+  } else {
+    user[userID].listArray.push([...currentList]);
   }
   while (listContainer.firstChild) {
     listContainer.removeChild(listContainer.firstChild);
   }
+
   showSaved();
 
   currentList.length = 0;
   newList.disabled = false;
+
+  console.log("User array from inside save function" + user[userID].listArray);
 });
 
 //func to show saved list
@@ -201,7 +204,6 @@ loadList.addEventListener("click", () => {
   for (let i = 0; i < user[userID].listArray.length; i++) {
     if (dropdown.value === user[userID].listArray[i][0]) {
       indexToLoad = i; //index for array that needs to be loaded
-      console.log(`Index to load: ${i}`);
     }
   }
 
@@ -221,12 +223,14 @@ loadList.addEventListener("click", () => {
 
   const ul = document.createElement("ul");
   listContainer.appendChild(ul);
-
+  console.log("IndexToLoad:" + indexToLoad);
+  console.log("User array from inside load function" + user[userID].listArray);
   //iterating through saved array to show for edit
   for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
     const li = document.createElement("li");
     input.value = user[userID].listArray[indexToLoad][i];
     li.innerText = input.value;
+    console.log("Input.Value from inside load for loop:" + input.value);
 
     if (input.value === "") {
       alert("Input field is empty!!");
@@ -234,7 +238,6 @@ loadList.addEventListener("click", () => {
     const remove = document.createElement("button"); // Remove button for the list item
     remove.innerText = "Remove";
     li.appendChild(remove);
-
     //title mode for first item as Title
     if (isTitleMode) {
       isTitleMode = false; //turning title mode off
@@ -282,7 +285,6 @@ loadList.addEventListener("click", () => {
     input.value = "";
     showSaved();
   });
-  console.log("current list after adding item to saved list:" + currentList);
   console.log(
     "User array after item being loaded and edited:" + user[userID].listArray
   );
