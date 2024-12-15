@@ -5,6 +5,7 @@ const newList = document.getElementById("newList");
 const saveList = document.getElementById("saveList");
 const listContainer = document.getElementById("listContainer");
 const savedList = document.getElementById("savedList");
+const loadList = document.getElementById("loadList");
 
 let userID = 0;
 const currentList = [];
@@ -164,3 +165,21 @@ function loadDropdown() {
     dropdown.appendChild(option);
   }
 }
+
+//Retrieve the saved list for edit
+loadList.addEventListener("click", () => {
+  let indexToLoad = 0;
+  console.log(dropdownList.value);
+  for (let i = 0; i < titleList.length; i++) {
+    if (dropdownList.value === titleList[i]) {
+      indexToLoad = i;
+    }
+  }
+
+  for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
+    console.log(user[userID].listArray[indexToLoad][i]);
+  }
+});
+//need to grab the index for array that needs to be loaded
+
+//iterate through the array to load all items
