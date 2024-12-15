@@ -1,6 +1,4 @@
 const container = document.getElementById("container");
-const userName = document.querySelector("#loginName");
-const password = document.querySelector("#loginPassword");
 const newList = document.getElementById("newList");
 const saveList = document.getElementById("saveList");
 const listContainer = document.getElementById("listContainer");
@@ -28,23 +26,6 @@ const user = [
 ];
 
 //function called when login is attempted
-function validateUser(e) {
-  e.preventDefault();
-  const name = userName.value;
-  const pass = password.value;
-  let isUserValid = false;
-  for (let i = 0; i < user.length; i++) {
-    if (name === user[i].name && pass === user[i].password) {
-      isUserValid = true;
-      userID = i; //setting user ID
-    }
-  }
-  if (!isUserValid) {
-    alert("Invalid User ID or Password");
-  } else {
-    window.location.assign("/index.html");
-  }
-}
 
 //Event handler for New List button
 newList.addEventListener("click", (e) => {
@@ -92,8 +73,13 @@ newList.addEventListener("click", (e) => {
         titleLi.appendChild(remove);
 
         remove.addEventListener("click", (e) => {
-          listContainer.innerHTML = "";
-          newList.disabled = false;
+          const confirmation = window.confirm(
+            "This will delete the current list permanently. Please confirm:"
+          );
+          if (confirmation) {
+            listContainer.innerHTML = "";
+            newList.disabled = false;
+          }
         });
       } else {
         // Add regular list item mode
@@ -230,13 +216,18 @@ loadList.addEventListener("click", () => {
       isTitleMode = false; //turning title mode off
       //event handler for remove button for title
       remove.addEventListener("click", (e) => {
-        //removing the list from saved array
-        user[userID].listArray.splice(indexToLoad, 1);
-        newList.disabled = false;
-        showSaved();
-        loadDropdown();
-        currentList.length = 0;
-        listContainer.innerHTML = "";
+        const confirmation = window.confirm(
+          "This will delete the current list permanently. Please confirm:"
+        );
+        if (confirmation) {
+          //removing the list from saved array
+          user[userID].listArray.splice(indexToLoad, 1);
+          newList.disabled = false;
+          showSaved();
+          loadDropdown();
+          currentList.length = 0;
+          listContainer.innerHTML = "";
+        }
       });
     } else {
       //regular item mode
