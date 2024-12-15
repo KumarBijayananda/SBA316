@@ -7,6 +7,7 @@ const listContainer = document.getElementById("listContainer");
 const savedList = document.getElementById("savedList");
 const loadList = document.getElementById("loadList");
 const dropdown = document.getElementById("dropdownList");
+const logOut = document.getElementById("logOut");
 
 let userID = 0;
 const currentList = [];
@@ -91,14 +92,8 @@ newList.addEventListener("click", (e) => {
         titleLi.appendChild(remove);
 
         remove.addEventListener("click", (e) => {
-          // e.preventDefault();
-          // currentList.length = 0;
           listContainer.innerHTML = "";
           newList.disabled = false;
-          // while (ul.firstChild) {
-          //   //remove entire list if title is removed
-          //   ul.removeChild(ul.firstChild);
-          // }
         });
       } else {
         // Add regular list item mode
@@ -131,12 +126,6 @@ saveList.addEventListener("click", (e) => {
   for (const li of ul.children) {
     currentList.push(li.firstChild.textContent);
   }
-  console.log("Current list right after save button" + currentList);
-
-  if (currentList.length === 0) {
-    alert("Current List is Empty");
-    return;
-  }
 
   for (let i = 0; i < user[userID].listArray.length; i++) {
     if (user[userID].listArray[i][0] === currentList[0]) {
@@ -158,8 +147,6 @@ saveList.addEventListener("click", (e) => {
 
   currentList.length = 0;
   newList.disabled = false;
-
-  console.log("User array from inside save function" + user[userID].listArray);
 });
 
 //func to show saved list
@@ -225,14 +212,12 @@ loadList.addEventListener("click", () => {
 
   const ul = document.createElement("ul");
   listContainer.appendChild(ul);
-  console.log("IndexToLoad:" + indexToLoad);
-  console.log("User array from inside load function" + user[userID].listArray);
+
   //iterating through saved array to show for edit
   for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
     const li = document.createElement("li");
     input.value = user[userID].listArray[indexToLoad][i];
     li.innerText = input.value;
-    console.log("Input.Value from inside load for loop:" + input.value);
 
     if (input.value === "") {
       alert("Input field is empty!!");
@@ -247,10 +232,6 @@ loadList.addEventListener("click", () => {
       remove.addEventListener("click", (e) => {
         //removing the list from saved array
         user[userID].listArray.splice(indexToLoad, 1);
-        console.log(
-          "After removing the title item from listArray " +
-            user[userID].listArray
-        );
         newList.disabled = false;
         showSaved();
         loadDropdown();
@@ -259,9 +240,8 @@ loadList.addEventListener("click", () => {
       });
     } else {
       //regular item mode
-      remove.addEventListener("click", (e) => {
-        li.remove();
-      });
+      remove.addEventListener("click", (e) => li.remove());
+
       input.value = "";
     }
   }
@@ -283,15 +263,14 @@ loadList.addEventListener("click", () => {
     li.appendChild(remove);
 
     remove.addEventListener("click", (e) => {
-      // e.preventDefault();
       li.remove();
     });
 
-    // currentList.push(input.value); // Add to the current list array
     input.value = "";
     showSaved();
   });
-  console.log(
-    "User array after item being loaded and edited:" + user[userID].listArray
-  );
+});
+
+logOut.addEventListener("click", () => {
+  window.location.href = "login.html";
 });
