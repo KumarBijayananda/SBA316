@@ -5,8 +5,10 @@ const newList = document.getElementById("newList");
 const saveList = document.getElementById("saveList");
 const listContainer = document.getElementById("listContainer");
 const savedList = document.getElementById("savedList");
+
 let userID = 0;
-currentList = [];
+const currentList = [];
+const titleList = [];
 
 const user = [
   {
@@ -132,19 +134,33 @@ saveList.addEventListener("click", (e) => {
     currentList.length = 0;
     newList.disabled = false;
   }
-  console.log(user[userID].listArray);
+  // console.log(user[userID].listArray);
 });
 
 //func to show saved list
 function showSaved() {
-  savedList.innerHTML = "";
+  // savedList.innerHTML = "";
   const ul = document.createElement("ul");
   savedList.appendChild(ul);
-  for (let i = 0; i < user[userID].listArray.length; i++) {
-    const li = document.createElement("li");
-    ul.appendChild(li);
-    li.innerText = user[userID].listArray[i][0];
-    li.style.listStyleType = "none";
-    li.style.color = "red";
+  // for (let i = 0; i < user[userID].listArray.length; i++) {
+  const li = document.createElement("li");
+  ul.appendChild(li);
+  li.innerText = user[userID].listArray[user[userID].listArray.length - 1][0];
+  titleList.push(li.innerText);
+  li.style.listStyleType = "none";
+  li.style.color = "red";
+  loadDropdown();
+}
+// }
+
+//function to show saved lists
+function loadDropdown() {
+  const dropdown = document.getElementById("dropdownList");
+
+  for (let i = 0; i < titleList.length; i++) {
+    const option = document.createElement("option");
+    option.value = titleList[i];
+    option.text = titleList[i];
+    dropdown.appendChild(option);
   }
 }
