@@ -188,6 +188,7 @@ function loadDropdown() {
 //Retrieve the saved list for edit
 //Event handler for Load List button
 loadList.addEventListener("click", () => {
+  currentList.length = 0;
   let indexToLoad = 0;
   for (let i = 0; i < user[userID].listArray.length; i++) {
     if (dropdownList.value === user[userID].listArray[i][0]) {
@@ -222,7 +223,7 @@ loadList.addEventListener("click", () => {
     if (input.value === "") {
       alert("Input field is empty!!");
     } else ul.appendChild(li);
-    currentList.push(input.value);
+    // currentList.push(input.value);
     const remove = document.createElement("button"); // Remove button for the list item
     remove.innerText = "Remove";
     li.appendChild(remove);
@@ -232,8 +233,8 @@ loadList.addEventListener("click", () => {
       isTitleMode = false; //turning title mode off
       //event handler for remove button for title
       remove.addEventListener("click", (e) => {
+        e.preventDefault();
         //removing the list from saved array
-        // console.log("Show titlemode from if:" + isTitleMode);
         user[userID].listArray.splice(indexToLoad, 1);
         li.remove();
         currentList.length = 0;
@@ -244,15 +245,20 @@ loadList.addEventListener("click", () => {
     } else {
       //regular item mode
       remove.addEventListener("click", (e) => {
-        // console.log("Show titlemode from else:" + isTitleMode);
+        e.preventDefault();
+        for (let i = 0; i < currentList.length; i++) {
+          if (currentList[i] === input.value) currentList.splice(i, 1); //removing item from current list
+        }
         li.remove();
       });
-      currentList.push(input.value); // Add to the current list array
+      // currentList.push(input.value); // Add to the current list array
       input.value = "";
     }
   }
-  input.value = "";
+  // input.value = "";
+  console.log("current list after loading item from saved list:" + currentList);
 
+  //event handler for ADD button after loading the saved list
   button.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -270,6 +276,9 @@ loadList.addEventListener("click", () => {
 
     remove.addEventListener("click", (e) => {
       e.preventDefault();
+      for (let i = 0; i < currentList.length; i++) {
+        if (currentList[i] === input.value) currentList.splice(i, 1); //removing item from current list
+      }
       li.remove();
     });
 
@@ -277,4 +286,8 @@ loadList.addEventListener("click", () => {
     input.value = "";
     showSaved();
   });
+  console.log("current list after adding item to saved list:" + currentList);
+  console.log(
+    "User array after item being loaded and edited:" + user[userID].listArray
+  );
 });
