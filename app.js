@@ -91,13 +91,14 @@ newList.addEventListener("click", (e) => {
         titleLi.appendChild(remove);
 
         remove.addEventListener("click", (e) => {
-          e.preventDefault();
-          titleLi.remove();
-          currentList.length = 0;
-          while (ul.firstChild) {
-            //remove entire list if title is removed
-            ul.removeChild(ul.firstChild);
-          }
+          // e.preventDefault();
+          // currentList.length = 0;
+          ul.innerHTML = "";
+          newList.disabled = false;
+          // while (ul.firstChild) {
+          //   //remove entire list if title is removed
+          //   ul.removeChild(ul.firstChild);
+          // }
         });
       } else {
         // Add regular list item mode
@@ -111,12 +112,12 @@ newList.addEventListener("click", (e) => {
         li.appendChild(remove);
 
         remove.addEventListener("click", (e) => {
-          e.preventDefault();
+          // e.preventDefault();
           li.remove();
         });
       }
     }
-    currentList.push(input.value); // Add to the current list array
+    // currentList.push(input.value); // Add to the current list array
     input.value = "";
   });
 });
@@ -125,9 +126,15 @@ newList.addEventListener("click", (e) => {
 saveList.addEventListener("click", (e) => {
   let isListTitleExist = false;
   let indexTitle = 0;
+  const ul = listContainer.querySelector("ul"); //getting the current list
+  const currentList = [];
+
+  for (const li of ul.children) {
+    currentList.push(li.textContent);
+  }
 
   if (currentList.length === 0) {
-    // alert("Current List is Empty");
+    alert("Current List is Empty");
   } else {
     for (let i = 0; i < user[userID].listArray.length; i++) {
       if (user[userID].listArray[i][0] === currentList[0]) {
@@ -146,7 +153,7 @@ saveList.addEventListener("click", (e) => {
     listContainer.removeChild(listContainer.firstChild);
   }
   showSaved();
-  console.log(currentList);
+
   currentList.length = 0;
   newList.disabled = false;
 });
@@ -223,7 +230,6 @@ loadList.addEventListener("click", () => {
     if (input.value === "") {
       alert("Input field is empty!!");
     } else ul.appendChild(li);
-    // currentList.push(input.value);
     const remove = document.createElement("button"); // Remove button for the list item
     remove.innerText = "Remove";
     li.appendChild(remove);
@@ -246,17 +252,12 @@ loadList.addEventListener("click", () => {
       //regular item mode
       remove.addEventListener("click", (e) => {
         e.preventDefault();
-        for (let i = 0; i < currentList.length; i++) {
-          if (currentList[i] === input.value) currentList.splice(i, 1); //removing item from current list
-        }
+
         li.remove();
       });
-      // currentList.push(input.value); // Add to the current list array
       input.value = "";
     }
   }
-  // input.value = "";
-  console.log("current list after loading item from saved list:" + currentList);
 
   //event handler for ADD button after loading the saved list
   button.addEventListener("click", (e) => {
@@ -276,9 +277,6 @@ loadList.addEventListener("click", () => {
 
     remove.addEventListener("click", (e) => {
       e.preventDefault();
-      for (let i = 0; i < currentList.length; i++) {
-        if (currentList[i] === input.value) currentList.splice(i, 1); //removing item from current list
-      }
       li.remove();
     });
 
