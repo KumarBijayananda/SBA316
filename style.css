@@ -47,7 +47,8 @@ input::placeholder {
 #mainSection {
   width: 70%;
 }
-li:first-child {
+
+#listContainer li:first-child {
   color: red;
   font-size: 20px;
   list-style-type: none;
