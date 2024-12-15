@@ -184,9 +184,11 @@ function showSaved() {
 
 //function to show saved lists
 function loadDropdown() {
-  while (dropdown.firstChild) {
-    dropdown.removeChild(dropdown.firstChild);
-  }
+  dropdown.innerHTML = "";
+  const option = document.createElement("option");
+  dropdown.appendChild(option);
+
+  option.text = "Select a list to Edit";
 
   for (let i = 0; i < user[userID].listArray.length; i++) {
     const option = document.createElement("option");
