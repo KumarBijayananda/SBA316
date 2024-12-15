@@ -1,14 +1,15 @@
 * {
   margin: 0px;
   box-sizing: border-box;
-  background-color: rgb(44, 44, 44);
+  background-color: rgb(226, 225, 225);
   /* outline: 2px solid black; */
 }
 
 header {
-  height: 20vh;
+  height: 15vh;
   font-size: 60px;
   text-align: center;
+  margin-top: 20px;
 }
 
 .loginForm {
@@ -21,14 +22,43 @@ header {
 }
 
 input {
-  /* width: 90%; */
+  width: 250px;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 button {
-  margin: 2%;
+  margin: 4px 10px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #5382b4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5382b4;
+  transform: translateY(-2px);
+}
+
+select {
+  margin: 4px 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+  background-color: rgb(226, 225, 225);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background-size: 10px;
+}
+
+select:hover {
+  border-color: #007bff;
+  background-color: rgb(226, 225, 225);
 }
 
 input::placeholder {
@@ -48,8 +78,27 @@ input::placeholder {
   width: 70%;
 }
 
+#listContainer {
+  border: 2px solid black;
+  width: 80%;
+  margin-top: 5%;
+}
+
 #listContainer li:first-child {
-  color: red;
+  color: rgb(202, 10, 10);
   font-size: 20px;
   list-style-type: none;
+}
+
+ul button {
+  height: 2rem;
+  /* margin: 0 auto; */
+}
+
+ul {
+  margin: 0 auto;
+}
+
+#savedSection {
+  border: 1px solid black;
 }
