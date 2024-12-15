@@ -127,12 +127,11 @@ saveList.addEventListener("click", (e) => {
   let isListTitleExist = false;
   let indexTitle = 0;
   const ul = listContainer.querySelector("ul"); //getting the current list
-  const currentList = [];
 
   for (const li of ul.children) {
-    currentList.push(li.textContent);
+    currentList.push(li.firstChild.textContent);
   }
-
+  console.log(currentList);
   if (currentList.length === 0) {
     alert("Current List is Empty");
   } else {
@@ -145,8 +144,10 @@ saveList.addEventListener("click", (e) => {
 
     if (isListTitleExist) {
       user[userID].listArray.splice(indexTitle, 1, currentList);
+      console.log("if title exits:");
     } else {
       user[userID].listArray.push([...currentList]);
+      console.log("if title doesn't exits:");
     }
   }
   while (listContainer.firstChild) {
@@ -198,7 +199,7 @@ loadList.addEventListener("click", () => {
   currentList.length = 0;
   let indexToLoad = 0;
   for (let i = 0; i < user[userID].listArray.length; i++) {
-    if (dropdownList.value === user[userID].listArray[i][0]) {
+    if (dropdown.value === user[userID].listArray[i][0]) {
       indexToLoad = i; //index for array that needs to be loaded
       console.log(`Index to load: ${i}`);
     }
@@ -239,7 +240,6 @@ loadList.addEventListener("click", () => {
       isTitleMode = false; //turning title mode off
       //event handler for remove button for title
       remove.addEventListener("click", (e) => {
-        e.preventDefault();
         //removing the list from saved array
         user[userID].listArray.splice(indexToLoad, 1);
         li.remove();
@@ -251,8 +251,6 @@ loadList.addEventListener("click", () => {
     } else {
       //regular item mode
       remove.addEventListener("click", (e) => {
-        e.preventDefault();
-
         li.remove();
       });
       input.value = "";
@@ -276,11 +274,11 @@ loadList.addEventListener("click", () => {
     li.appendChild(remove);
 
     remove.addEventListener("click", (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       li.remove();
     });
 
-    currentList.push(input.value); // Add to the current list array
+    // currentList.push(input.value); // Add to the current list array
     input.value = "";
     showSaved();
   });
