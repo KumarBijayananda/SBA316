@@ -47,7 +47,8 @@ function validateUser(e) {
 
 newList.addEventListener("click", (e) => {
   let isTitleMode = true; // Start with title mode
-  newList.disabled = true;
+  newList.disabled = true; //disable New List button
+
   const form = document.createElement("form");
   listContainer.appendChild(form);
 
@@ -57,7 +58,7 @@ newList.addEventListener("click", (e) => {
   input.focus();
 
   const button = document.createElement("button");
-  button.innerText = "Add Title"; // Initial button text for title
+  button.innerText = "Add title"; // Initial button text for title
   form.appendChild(button);
 
   const ul = document.createElement("ul");
@@ -71,6 +72,8 @@ newList.addEventListener("click", (e) => {
       // Add title as the first list item
       const titleLi = document.createElement("li");
       titleLi.innerText = input.value;
+
+      //check if input is empty
       if (input.value === "") {
         alert("Input field is empty!!");
       } else {
@@ -78,7 +81,7 @@ newList.addEventListener("click", (e) => {
 
         // Switch to item mode
         isTitleMode = false;
-        button.innerText = "Add Item";
+        button.innerText = "Add item";
         input.placeholder = "Enter list item here";
       }
       const remove = document.createElement("button"); // Remove button for the title
@@ -158,12 +161,12 @@ function showSaved() {
 function loadDropdown() {
   const dropdown = document.getElementById("dropdownList");
 
-  for (let i = 0; i < titleList.length; i++) {
-    const option = document.createElement("option");
-    option.value = titleList[i];
-    option.text = titleList[i];
-    dropdown.appendChild(option);
-  }
+  // for (let i = 0; i < titleList.length; i++) {
+  const option = document.createElement("option");
+  dropdown.appendChild(option);
+  option.value = titleList[titleList.length - 1];
+  option.text = titleList[titleList.length - 1];
+  // }
 }
 
 //Retrieve the saved list for edit
@@ -172,14 +175,49 @@ loadList.addEventListener("click", () => {
   console.log(dropdownList.value);
   for (let i = 0; i < titleList.length; i++) {
     if (dropdownList.value === titleList[i]) {
-      indexToLoad = i;
+      indexToLoad = i; //index for array that needs to be loaded
     }
   }
+  newList.disabled = true;
+  const form = document.createElement("form");
+  listContainer.appendChild(form);
+
+  const input = document.createElement("input");
+  input.placeholder = "Enter list item here";
+  form.appendChild(input);
+  input.focus();
+
+  const button = document.createElement("button");
+  button.innerText = "Add item";
+  form.appendChild(button);
+
+  const ul = document.createElement("ul");
+  listContainer.appendChild(ul);
 
   for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
-    console.log(user[userID].listArray[indexToLoad][i]);
+    // console.log(user[userID].listArray[indexToLoad][i]);
+
+    const li = document.createElement("li");
+    li.innerText = user[userID].listArray[indexToLoad][i];
+    ul.appendChild(li);
+
+    // if (input.value === "") {
+    //   alert("Input field is empty!!");
+    // } else
+
+    ul.appendChild(li);
+
+    const remove = document.createElement("button"); // Remove button for the list item
+    remove.innerText = "Remove";
+    li.appendChild(remove);
+
+    remove.addEventListener("click", (e) => {
+      e.preventDefault();
+      li.remove();
+    });
+    currentList.push(input.value); // Add to the current list array
+    input.value = "";
   }
 });
-//need to grab the index for array that needs to be loaded
 
 //iterate through the array to load all items
