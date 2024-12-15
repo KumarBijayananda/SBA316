@@ -39,7 +39,7 @@ input::placeholder {
   display: flex;
 }
 
-#savedList {
+#savedSection {
   width: 30%;
   text-align: center;
   height: 80vh;

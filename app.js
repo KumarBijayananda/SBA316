@@ -9,7 +9,6 @@ const loadList = document.getElementById("loadList");
 
 let userID = 0;
 const currentList = [];
-const titleList = [];
 
 const user = [
   {
@@ -125,7 +124,7 @@ saveList.addEventListener("click", (e) => {
   let indexTitle = 0;
 
   if (currentList.length === 0) {
-    alert("Current List is Empty");
+    // alert("Current List is Empty");
   } else {
     for (let i = 0; i < user[userID].listArray.length; i++) {
       if (user[userID].listArray[i][0] === currentList[0]) {
@@ -151,44 +150,36 @@ saveList.addEventListener("click", (e) => {
 
 //func to show saved list
 function showSaved() {
-  // savedList.innerHTML = "";
+  //savedList.innerHTML = "";
 
-  while (showSaved.firstChild) {
-    showSaved.removeChild(showSaved.firstChild);
+  while (savedList.firstChild) {
+    savedList.removeChild(savedList.firstChild);
   }
+
   const ul = document.createElement("ul");
   savedList.appendChild(ul);
-  // for (let i = 0; i < user[userID].listArray.length; i++) {
-  const li = document.createElement("li");
-  ul.appendChild(li);
-  li.innerText = user[userID].listArray[user[userID].listArray.length - 1][0];
-  // titleList.push(li.innerText);
-  li.style.listStyleType = "none";
-  li.style.color = "red";
+  for (let i = 0; i < user[userID].listArray.length; i++) {
+    const li = document.createElement("li");
+    ul.appendChild(li);
+    li.innerText = user[userID].listArray[i][0];
+    li.style.listStyleType = "none";
+    li.style.color = "red";
+  }
   loadDropdown();
 }
-// }
 
 //function to show saved lists
 function loadDropdown() {
   const dropdown = document.getElementById("dropdownList");
-
-  // for (let i = 0; i < titleList.length; i++) {
   const option = document.createElement("option");
   dropdown.appendChild(option);
   option.value = user[userID].listArray[user[userID].listArray.length - 1][0];
   option.text = user[userID].listArray[user[userID].listArray.length - 1][0];
-
-  // option.value = titleList[titleList.length - 1];
-  // option.text = titleList[titleList.length - 1];
-  // }
 }
 
 //Retrieve the saved list for edit
 loadList.addEventListener("click", () => {
   let indexToLoad = 0;
-  // console.log(dropdownList.value);
-  // console.log(titleList);
   for (let i = 0; i < user[userID].listArray.length; i++) {
     if (dropdownList.value === user[userID].listArray[i][0]) {
       indexToLoad = i; //index for array that needs to be loaded
