@@ -10,7 +10,7 @@ const dropdown = document.getElementById("dropdownList");
 
 let userID = 0;
 const currentList = [];
-
+let isTitleMode = true;
 const user = [
   {
     name: "Kumar",
@@ -47,7 +47,7 @@ function validateUser(e) {
 
 //Event handler for New List button
 newList.addEventListener("click", (e) => {
-  let isTitleMode = true; // Start with title mode
+  isTitleMode = true; // Start with title mode
   newList.disabled = true; //disable New List button
 
   //create form
@@ -195,7 +195,8 @@ loadList.addEventListener("click", () => {
       console.log(`Index to load: ${i}`);
     }
   }
-  let isTitleMode = true; // Start with title mode
+
+  isTitleMode = true; // Start with title mode
   newList.disabled = true;
   const form = document.createElement("form");
   listContainer.appendChild(form);
@@ -212,6 +213,7 @@ loadList.addEventListener("click", () => {
   const ul = document.createElement("ul");
   listContainer.appendChild(ul);
 
+  //iterating through saved array to show for edit
   for (let i = 0; i < user[userID].listArray[indexToLoad].length; i++) {
     const li = document.createElement("li");
     input.value = user[userID].listArray[indexToLoad][i];
@@ -225,9 +227,14 @@ loadList.addEventListener("click", () => {
     remove.innerText = "Remove";
     li.appendChild(remove);
 
+    //title mode for first item as Title
     if (isTitleMode) {
+      isTitleMode = false; //turning title mode off
+      //event handler for remove button for title
       remove.addEventListener("click", (e) => {
-        isTitleMode = false;
+        //removing the list from saved array
+        // console.log("Show titlemode from if:" + isTitleMode);
+        user[userID].listArray.splice(indexToLoad, 1);
         li.remove();
         currentList.length = 0;
         while (ul.firstChild) {
@@ -235,7 +242,9 @@ loadList.addEventListener("click", () => {
         }
       });
     } else {
+      //regular item mode
       remove.addEventListener("click", (e) => {
+        // console.log("Show titlemode from else:" + isTitleMode);
         li.remove();
       });
       currentList.push(input.value); // Add to the current list array
