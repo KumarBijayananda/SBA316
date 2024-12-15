@@ -93,7 +93,7 @@ newList.addEventListener("click", (e) => {
         remove.addEventListener("click", (e) => {
           // e.preventDefault();
           // currentList.length = 0;
-          ul.innerHTML = "";
+          listContainer.innerHTML = "";
           newList.disabled = false;
           // while (ul.firstChild) {
           //   //remove entire list if title is removed
@@ -247,11 +247,15 @@ loadList.addEventListener("click", () => {
       remove.addEventListener("click", (e) => {
         //removing the list from saved array
         user[userID].listArray.splice(indexToLoad, 1);
-        li.remove();
+        console.log(
+          "After removing the title item from listArray " +
+            user[userID].listArray
+        );
+        newList.disabled = false;
+        showSaved();
+        loadDropdown();
         currentList.length = 0;
-        while (ul.firstChild) {
-          ul.removeChild(ul.firstChild);
-        }
+        listContainer.innerHTML = "";
       });
     } else {
       //regular item mode
