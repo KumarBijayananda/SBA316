@@ -62,6 +62,7 @@ newList.addEventListener("click", (e) => {
         // Add title as the first list item
         const titleLi = document.createElement("li");
         titleLi.innerText = input.value;
+        titleLi.style.margin = "20px 0 0 0";
 
         ul.appendChild(titleLi);
         isTitleMode = false; // Switch to item mode
@@ -91,7 +92,6 @@ newList.addEventListener("click", (e) => {
         remove.innerText = "Remove";
         li.appendChild(remove);
         remove.addEventListener("click", (e) => {
-          // e.preventDefault();
           li.remove();
         });
       }

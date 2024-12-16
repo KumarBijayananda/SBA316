@@ -99,7 +99,8 @@ input::placeholder {
   border-right: 1px solid rgb(139, 139, 139);
   width: 60%;
   height: 72vh;
-  margin-top: 2%;
+  margin: 2%;
+  padding-right: 5%;
 }
 
 #listContainer li:first-child {
@@ -116,6 +117,5 @@ input::placeholder {
 li button {
   font-size: 12px;
   height: 24px;
-  line-height: 20px;
   padding: 2px 5px;
 }
