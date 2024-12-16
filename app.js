@@ -149,8 +149,9 @@ function showSaved() {
     const li = document.createElement("li");
     ul.appendChild(li);
     li.innerText = user[userID].listArray[i][0];
-    li.style.listStyleType = "none";
-    li.style.color = "red";
+    li.style.listStyleType = "square";
+    li.style.color = "darkred";
+    li.style.margin = "10px 15px";
   }
   loadDropdown();
 }

@@ -1,7 +1,7 @@
 * {
   margin: 0px;
   box-sizing: border-box;
-  background-color: rgb(226, 225, 225);
+  background-color: #e2e1e1;
   /* outline: 2px solid black; */
 }
 
@@ -25,10 +25,14 @@ input {
   width: 250px;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #e2e1e1;
   border-radius: 4px;
 }
 
+#buttons {
+  border: 2px solid black;
+  width: 80%;
+}
 button {
   margin: 4px 10px;
   padding: 10px 20px;
@@ -58,7 +62,7 @@ select {
 
 select:hover {
   border-color: #007bff;
-  background-color: rgb(226, 225, 225);
+  background-color: #e2e1e1;
 }
 
 input::placeholder {
@@ -79,26 +83,32 @@ input::placeholder {
 }
 
 #listContainer {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   width: 80%;
   margin-top: 5%;
 }
 
 #listContainer li:first-child {
-  color: rgb(202, 10, 10);
+  color: darkred;
   font-size: 20px;
   list-style-type: none;
+  margin-top: 20px 0 0 20px;
 }
 
-ul button {
-  height: 2rem;
-  /* margin: 0 auto; */
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-ul {
-  margin: 0 auto;
+li button {
+  font-size: 12px;
+  height: 24px;
+  line-height: 20px;
+  padding: 2px 5px;
 }
 
 #savedSection {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  margin-top: 15px;
 }
