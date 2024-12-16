@@ -30,9 +30,13 @@ input {
   border-radius: 4px;
 }
 
+input::placeholder {
+  text-align: center;
+}
+
 #buttons {
   /* border: 2px solid black; */
-  width: 80%;
+  width: 100%;
 }
 button {
   margin: 4px 10px;
@@ -86,7 +90,8 @@ input::placeholder {
 
 #listContainer {
   /* border: 2px solid black; */
-  width: 80%;
+  width: 60%;
+  /* min-width: 50%; */
   margin-top: 5%;
 }
 
@@ -97,7 +102,7 @@ input::placeholder {
   margin-top: 20px 0 0 20px;
 }
 
-ul li {
+#listContainer ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,4 +118,5 @@ li button {
 #savedSection {
   border-right: 1px solid rgb(139, 139, 139);
   margin-top: 20px;
+  /* list-style-type: square; */
 }

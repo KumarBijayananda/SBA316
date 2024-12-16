@@ -112,7 +112,10 @@ saveList.addEventListener("click", (e) => {
   for (const li of ul.children) {
     currentList.push(li.firstChild.textContent);
   }
-
+  if (currentList.length === 0) {
+    alert("List is empty, add a title and list items first!");
+    return;
+  }
   for (let i = 0; i < user[userID].listArray.length; i++) {
     if (user[userID].listArray[i][0] === currentList[0]) {
       isListTitleExist = true;
@@ -150,6 +153,7 @@ function showSaved() {
     ul.appendChild(li);
     li.innerText = user[userID].listArray[i][0];
     li.style.listStyleType = "square";
+    li.style.textAlign = "left";
     li.style.color = "darkred";
     li.style.margin = "10px 15px";
   }
