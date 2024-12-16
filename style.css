@@ -3,10 +3,11 @@
   box-sizing: border-box;
   background-color: #e2e1e1;
   /* outline: 2px solid black; */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
-  height: 15vh;
+  height: 10vh;
   font-size: 60px;
   text-align: center;
   margin-top: 20px;
@@ -30,7 +31,7 @@ input {
 }
 
 #buttons {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   width: 80%;
 }
 button {
@@ -80,6 +81,7 @@ input::placeholder {
 }
 #mainSection {
   width: 70%;
+  padding: 20px 0 0 20px;
 }
 
 #listContainer {
@@ -109,6 +111,6 @@ li button {
 }
 
 #savedSection {
-  /* border: 1px solid black; */
-  margin-top: 15px;
+  border-right: 1px solid rgb(139, 139, 139);
+  margin-top: 20px;
 }
