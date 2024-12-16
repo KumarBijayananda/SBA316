@@ -85,13 +85,11 @@ newList.addEventListener("click", (e) => {
         // Add regular list item mode
         const li = document.createElement("li");
         li.innerText = input.value;
-
         ul.appendChild(li);
 
         const remove = document.createElement("button"); // Remove button for the list item
         remove.innerText = "Remove";
         li.appendChild(remove);
-
         remove.addEventListener("click", (e) => {
           // e.preventDefault();
           li.remove();
